@@ -36,7 +36,7 @@ int main(int ac, char *av[])
 	while (getLine(&(string[n]), &bufsize, fd) > 0)
 	{
 		n++;
-		string = realloc(string, (n + 1) * sizeof(char *));
+		string = realloc(string, (n + 1) * sizeof(char*));
 		if (string == NULL)
 		{
 			perror("Error reallocating memory");
