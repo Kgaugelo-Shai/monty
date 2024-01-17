@@ -74,31 +74,29 @@ int pushInt(char *list, int ln)
 
 			if (*opcode == '\0')
 			{
-				 while (*list)
-				 {
-					 if ((*list >= '0' && *list <= '9') ||
-					     *list == '-')
-					 {
-						 combFind(list, ln);
-						 return (atoi(list));
-					 }
-					 else if (*list == ' ')
-						 list++;
-					 else
-					 {
-						 fprintf(stderr, "L%d: usage: push integer\n", ln);
-						 exit(EXIT_FAILURE);
-					 }
-
-				 }
+				while (*list)
+				{
+					if ((*list >= '0' && *list <= '9') ||
+							*list == '-')
+					{
+						combFind(list, ln);
+						return (atoi(list));
+					}
+					else if (*list == ' ')
+						list++;
+					else
+					{
+						fprintf(stderr, "L%d: usage: push integer\n", ln);
+						exit(EXIT_FAILURE);
+					}
+				}
+			}
 		}
-			else
-				list++;
+		else
+			list++;
 	}
-		return (0);
+	return (0);
 }
-
-
 /**
  * combFind - finds nonnumbers and number combinations
  * @list: the string
@@ -122,4 +120,61 @@ int combFind(char *list, int ln)
 		}
 	}
 	return (1);
+}
+/**
+ * getLine - reads line from stdio and stores it in a buffer
+ * @lineptr: pointer to buffer
+ * @n: size of characters read
+ * @stream: file to be read from
+ *
+ * Return: number of characters read
+ */
+ssize_t getLine(char **lineptr, size_t *n, FILE *stream)
+{
+	size_t bufsize = *n;
+	int c;
+	size_t i = 0;
+	char *temp;
+
+	if (lineptr == NULL || n == NULL)
+		return (-1);
+
+	if (*lineptr == NULL)
+	{
+		bufsize = 128;
+		*lineptr = (char *)malloc(bufsize);
+		if (*lineptr == NULL)
+		{
+			return (-1);
+		}
+	}
+	else if (*n == 0)
+	{
+		return (-1);
+	}
+
+	while ((c = fgetc(stream)) != EOF && c != '\n')
+	{
+		if (i == bufsize - 1)
+		{
+			bufsize *= 2;
+			temp = (char *)realloc(*lineptr, bufsize);
+			if (temp == NULL)
+			{
+				free(*lineptr);
+				*lineptr = NULL;
+				return (-1);
+			}
+			*lineptr = temp;
+		}
+		(*lineptr)[i++] = (char)c;
+	}
+
+	if (i > 0 || c == '\n')
+	{
+		(*lineptr)[i] = '\0';
+		*n = bufsize;
+		return (i);
+	}
+	return (-1);
 }

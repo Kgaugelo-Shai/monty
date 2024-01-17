@@ -55,4 +55,6 @@ void execute(char *string[], stack_t *stack);
 int nlfind(char *list);
 void freeList(char *a[]);
 int combFind(char *list, int ln);
+ssize_t getLine(char **lineptr, size_t *n, FILE *stream);
+
 #endif

@@ -1,5 +1,5 @@
 #include "monty.h"
-
+#include <stdio.h>
 /**
  * main - monty interperter
  * @ac: the number of arguments
@@ -9,10 +9,10 @@
 int main(int ac, char *av[])
 {
 	stack_t *stack = NULL;
-	static char *string[1000] = {NULL};
-	int n = 0;
+	size_t n = 0;
 	FILE *fd;
-	size_t bufsize = 1000;
+	size_t bufsize = 1024;
+	char **string;
 
 	if (ac != 2)
 	{
@@ -25,15 +25,31 @@ int main(int ac, char *av[])
 		fprintf(stderr, "Error: Can't open file %s\n", av[1]);
 		exit(EXIT_FAILURE);
 	}
-
-	for (n = 0; getline(&(string[n]), &bufsize, fd) > 0; n++)
-		;
-
+	string = malloc(sizeof(char *));
+	if (string == NULL)
+	{
+		perror("Error allocating memory");
+		fclose(fd);
+		return (1);
+	}
+	n = 0;
+	while (getLine(&(string[n]), &bufsize, fd) > 0)
+	{
+		n++;
+		string = realloc(string, (n + 1) * sizeof(char *));
+		if (string == NULL)
+		{
+			perror("Error reallocating memory");
+			fclose(fd);
+			return (1);
+		}
+	}
 	execute(string, stack);
 	freeList(string);
 	fclose(fd);
 	return (0);
 }
+
 
 /**
  * execute - executes opcodes
