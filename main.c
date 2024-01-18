@@ -29,19 +29,19 @@ int main(int ac, char *av[])
 
 	for (n = 0; getLine(&(string[n]), &bufsize, fd) > 0; n++)
 		;
-	execute(string, stack);
+	executer(string, stack);
 	freeList(string);
 	fclose(fd);
 	return (0);
 }
 /**
- * execute - executes opcodes
+ * executer - executes opcodes
  * @string: contents of file
  * @stack: the list
  * Return: void
  */
 
-void execute(char *string[], stack_t *stack)
+void executer(char *string[], stack_t *stack)
 {
 	int ln, n, i;
 
@@ -54,6 +54,7 @@ void execute(char *string[], stack_t *stack)
 		{"div", fDiv},
 		{"mul", fMul},
 		{"mod", fMod},
+		{"pchar", pcharf},
 		{"null", NULL}};
 
 	for (ln = 1, n = 0; string[n + 1]; n++, ln++)

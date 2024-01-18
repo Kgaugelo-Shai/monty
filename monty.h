@@ -51,7 +51,7 @@ void swap(stack_t **stack, unsigned int line_num);
 void pop(stack_t **stack, unsigned int line_num);
 void push(stack_t **stack, unsigned int line_number, int n);
 void pall(stack_t **stack, unsigned int line_num);
-void execute(char *string[], stack_t *stack);
+void executer(char *string[], stack_t *stack);
 int nlfind(char *list);
 void freeList(char *a[]);
 int combFind(char *list, int ln);
@@ -60,4 +60,5 @@ void fSub(stack_t **head, unsigned int counter);
 void fMul(stack_t **head, unsigned int counter);
 void fDiv(stack_t **head, unsigned int counter);
 void fMod(stack_t **head, unsigned int counter);
+void pcharf(stack_t **head, unsigned int line_num);
 #endif
