@@ -56,5 +56,8 @@ int nlfind(char *list);
 void freeList(char *a[]);
 int combFind(char *list, int ln);
 ssize_t getLine(char **lineptr, size_t *n, FILE *stream);
-
+void fSub(stack_t **head, unsigned int counter);
+void fMul(stack_t **head, unsigned int counter);
+void fDiv(stack_t **head, unsigned int counter);
+void fMod(stack_t **head, unsigned int counter);
 #endif
