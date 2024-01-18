@@ -36,6 +36,11 @@ void push(stack_t **stack, unsigned int line_num, int n)
 		fprintf(stderr, "L%d: usage: push integer", line_num);
 		exit(EXIT_FAILURE);
 	}
+	if (!n)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_num);
+		 exit(EXIT_FAILURE);
+	}
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
 		exit(EXIT_FAILURE);
